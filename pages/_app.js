@@ -51,7 +51,7 @@ const GlobalStyle = ({ children }) => {
 
 function App({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider resetCSS theme={theme}>
       <AuthProvider>
         <GlobalStyle />
         <Component {...pageProps} />
