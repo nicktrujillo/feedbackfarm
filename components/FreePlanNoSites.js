@@ -1,10 +1,10 @@
 import React from "react";
 import { Heading, Box, Text, Button } from "@chakra-ui/react";
 
-import DashboardScaffold from "./DashboardScaffold";
+import DashboardLayout from "./DashboardLayout";
 
 const FreePlanNoSites = () => (
-  <DashboardScaffold>
+  <DashboardLayout>
     <Box width='100%' borderRadius='8px' p={8}>
       <Heading size='xl' as='h1' pb={4}>
         Get instant feedback on your site.
@@ -14,7 +14,7 @@ const FreePlanNoSites = () => (
         Upgrade to Starter
       </Button>
     </Box>
-  </DashboardScaffold>
+  </DashboardLayout>
 );
 
 export default FreePlanNoSites;

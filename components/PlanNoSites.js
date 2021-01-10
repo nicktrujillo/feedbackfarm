@@ -1,11 +1,11 @@
 import React from "react";
 import { Heading, Flex, Text, Button } from "@chakra-ui/react";
 
-import DashboardScaffold from "./DashboardScaffold";
+import DashboardLayout from "./DashboardLayout";
 import AddNewSiteModal from "./AddNewSiteModal";
 
 const PlanNoSites = () => (
-  <DashboardScaffold>
+  <DashboardLayout>
     <Flex
       flexDirection='column'
       justify='center'
@@ -20,7 +20,7 @@ const PlanNoSites = () => (
       <Text pb={4}>You don't have any sites yet.</Text>
       <AddNewSiteModal />
     </Flex>
-  </DashboardScaffold>
+  </DashboardLayout>
 );
 
 export default PlanNoSites;

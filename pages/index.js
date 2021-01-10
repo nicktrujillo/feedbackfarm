@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import {
   Button,
   Heading,
@@ -35,10 +36,9 @@ export default function Home() {
       </Icon>
       {auth.user ? (
         <>
-          <Button onClick={(e) => auth.signout()}>Sign Out</Button>
-          <Button onClick={toggleColorMode}>
-            Toggle {colorMode === "light" ? "Dark" : "Light"}
-          </Button>
+          <Link href='/dashboard'>
+            <Button>View Dashboard</Button>
+          </Link>
         </>
       ) : (
         <Button mt={4} onClick={(e) => auth.signinWithGitHub()}>

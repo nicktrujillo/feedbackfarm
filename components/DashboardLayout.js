@@ -19,7 +19,7 @@ import { LinkIcon, ChatIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 import { useAuth } from "@/utils/auth";
 
-const DashboardScaffold = ({ children }) => {
+const DashboardLayout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const auth = useAuth();
 
@@ -54,7 +54,7 @@ const DashboardScaffold = ({ children }) => {
         </Flex>
         <Flex alignItems='center' justifyContent='flex-start'>
           <Avatar mr={2} boxSize={6} src={auth.user.photoUrl} />
-          <Link>Account</Link>
+          <Link onClick={(e) => auth.signout()}>Sign Out</Link>
         </Flex>
       </Stack>
       <Flex p={0} justifyContent='flex-start' alignItems='stretch'>
@@ -90,4 +90,4 @@ const DashboardScaffold = ({ children }) => {
   );
 };
 
-export default DashboardScaffold;
+export default DashboardLayout;
