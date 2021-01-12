@@ -36,8 +36,8 @@ export default function Home() {
       </Icon>
       {auth.user ? (
         <>
-          <Link href='/dashboard'>
-            <Button>View Dashboard</Button>
+          <Link href='/sites'>
+            <Button mt={4}>View Dashboard</Button>
           </Link>
         </>
       ) : (

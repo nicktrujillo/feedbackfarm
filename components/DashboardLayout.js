@@ -18,6 +18,7 @@ import {
 import { LinkIcon, ChatIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 import { useAuth } from "@/utils/auth";
+import AddNewSiteModal from "./AddNewSiteModal";
 
 const DashboardLayout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -53,8 +54,8 @@ const DashboardLayout = ({ children }) => {
           <Link>Feedback</Link>
         </Flex>
         <Flex alignItems='center' justifyContent='flex-start'>
-          <Avatar mr={2} boxSize={6} src={auth.user.photoUrl} />
-          <Link onClick={(e) => auth.signout()}>Sign Out</Link>
+          <Avatar mr={2} boxSize={6} src={auth.user?.photoUrl} />
+          {auth.user && <Link onClick={(e) => auth.signout()}>Sign Out</Link>}
         </Flex>
       </Stack>
       <Flex p={0} justifyContent='flex-start' alignItems='stretch'>
@@ -66,8 +67,7 @@ const DashboardLayout = ({ children }) => {
           height='100vh'
         >
           <Flex flexDirection='column' width='90%'>
-            <Flex justifyContent='space-between' mt={4}>
-              <Heading mb={4}>My Sites</Heading>
+            <Flex justifyContent='flex-end' mt={4}>
               <IconButton
                 aria-label='icon'
                 icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}

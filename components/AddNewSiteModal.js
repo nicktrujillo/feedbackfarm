@@ -1,6 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { mutate } from "swr";
 import {
   Modal,
   ModalOverlay,
@@ -27,12 +28,21 @@ const AddNewSiteModal = () => {
   const { handleSubmit, register, errors } = useForm();
   const toast = useToast();
 
-  const onSubmit = (values) => {
-    createSite({
+  const onSubmit = ({ name, url }) => {
+    const newSite = {
       authorId: auth.user.uid,
       createdAt: new Date().toISOString(),
-      ...values,
-    });
+      name,
+      url,
+    };
+    createSite(newSite);
+    mutate(
+      "/api/sites",
+      async (data) => {
+        return { sites: [...data.sites, newSite] };
+      },
+      false
+    );
     toast({
       title: "Success!",
       description: "Your site has been added.",
@@ -46,7 +56,7 @@ const AddNewSiteModal = () => {
   return (
     <>
       <Button onClick={onOpen} variant='solid' size='md' borderRadius='8px'>
-        Add Your First Site
+        + Add Site
       </Button>
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -59,7 +69,7 @@ const AddNewSiteModal = () => {
               <Input
                 // ref={initialRef}
                 placeholder='My Site'
-                name='site'
+                name='name'
                 ref={register({
                   required: "Required",
                 })}
