@@ -1,4 +1,4 @@
-import { compareDesc, parseISO } from "date-fns";
+import { compareDesc, compareAsc, parseISO } from "date-fns";
 
 import firebase from "./firebase-admin";
 
@@ -34,6 +34,10 @@ export async function getAllSites() {
     snapshot.forEach((doc) => {
       sites.push({ id: doc.id, ...doc.data() });
     });
+
+    sites.sort((a, b) =>
+      compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+    );
 
     return { sites };
   } catch (error) {

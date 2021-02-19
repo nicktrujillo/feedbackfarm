@@ -1,4 +1,5 @@
 import React from "react";
+import NextLink from "next/link";
 import {
   Table,
   Thead,
@@ -30,7 +31,9 @@ const SiteTable = ({ sites }) => {
             <Td fontWeight='medium'>{site.name}</Td>
             <Td>{site.url}</Td>
             <Td>
-              <Link color={linkColor}>view feedback</Link>
+              <NextLink href='/p/[siteId]' as={`/p/${site.id}`} passHref>
+                <Link color={linkColor}>view feedback</Link>
+              </NextLink>
             </Td>
             <Td>{format(parseISO(site.createdAt), "PP")}</Td>
           </Tr>
