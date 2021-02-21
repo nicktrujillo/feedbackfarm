@@ -21,6 +21,8 @@ function useProvideAuth() {
     if (rawUser) {
       const user = formatUser(rawUser);
 
+      console.log(rawUser);
+
       createUser(user.uid, user);
       setLoading(false);
       setUser(user);
