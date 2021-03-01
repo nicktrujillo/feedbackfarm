@@ -36,7 +36,6 @@ export default function Home() {
       </Icon>
       {auth.user ? (
         <>
-          <h1>Feedback Farm</h1>
           <Link href='/sites'>
             <Button mt={4}>View Dashboard</Button>
           </Link>
