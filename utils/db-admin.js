@@ -45,10 +45,10 @@ export async function getAllSites() {
   }
 }
 
-export async function getUserSites(userId) {
+export async function getUserSites(uid) {
   const snapshot = await db
     .collection("sites")
-    .where("authorId", "==", userId)
+    .where("authorId", "==", uid)
     .get();
   const sites = [];
 
@@ -61,4 +61,22 @@ export async function getUserSites(userId) {
   );
 
   return { sites };
+}
+
+export async function getUserFeedback(uid) {
+  const snapshot = await db
+    .collection("feedback")
+    .where("authorId", "==", uid)
+    .get();
+  const feedback = [];
+
+  snapshot.forEach((doc) => {
+    feedback.push({ id: doc.id, ...doc.data() });
+  });
+
+  feedback.sort((a, b) =>
+    compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+  );
+
+  return { feedback };
 }

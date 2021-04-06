@@ -10,25 +10,13 @@ import SiteTableSkeleton from "@/components/SiteTableSkeleton";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { data, error } = useSWR(
-    user ? ["/api/sites", user.token] : null,
-    fetcher
-  );
+  const { data } = useSWR(user ? ["/api/sites", user.token] : null, fetcher);
 
-  if (error) return <div>failed to load</div>;
-  if (!data)
+  if (!data) {
     return (
       <DashboardLayout>
         <SiteTableHeader />
         <SiteTableSkeleton />
-      </DashboardLayout>
-    );
-
-  if (data.sites.length) {
-    return (
-      <DashboardLayout>
-        <SiteTableHeader />
-        <SiteTable sites={data.sites} />
       </DashboardLayout>
     );
   }
@@ -36,13 +24,9 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <SiteTableHeader />
-      <PlanNoSites />
+      {data.sites.length ? <SiteTable sites={data.sites} /> : <PlanNoSites />}
     </DashboardLayout>
   );
 };
 
-const Sites = () => {
-  return <Dashboard />;
-};
-
-export default Sites;
+export default Dashboard;
