@@ -1,10 +1,10 @@
 import { compareDesc, compareAsc, parseISO } from "date-fns";
 
-import firebase from "./firebase-admin";
+import { db } from "./firebase-admin";
 
 export async function getAllFeedback(siteId) {
   try {
-    const snapshot = await firebase
+    const snapshot = await db
       .collection("feedback")
       .where("siteId", "==", siteId)
       .get();
@@ -27,7 +27,7 @@ export async function getAllFeedback(siteId) {
 
 export async function getAllSites() {
   try {
-    const sitesRef = firebase.collection("sites");
+    const sitesRef = db.collection("sites");
     const snapshot = await sitesRef.get();
     const sites = [];
 
@@ -43,4 +43,22 @@ export async function getAllSites() {
   } catch (error) {
     return { error };
   }
+}
+
+export async function getUserSites(userId) {
+  const snapshot = await db
+    .collection("sites")
+    .where("authorId", "==", userId)
+    .get();
+  const sites = [];
+
+  snapshot.forEach((doc) => {
+    sites.push({ id: doc.id, ...doc.data() });
+  });
+
+  sites.sort((a, b) =>
+    compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+  );
+
+  return { sites };
 }

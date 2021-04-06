@@ -21,6 +21,15 @@ export default function Home() {
   return (
     <Flex direction='column' align='center' justify='center' h='100vh'>
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          if (document.cookie && document.cookie.includes('feedback-farm-auth')) {
+            window.location.href = "/dashboard"
+          }
+        `,
+          }}
+        />
         <title>Feedback Farm</title>
       </Head>
 
@@ -36,7 +45,7 @@ export default function Home() {
       </Icon>
       {auth.user ? (
         <>
-          <Link href='/sites'>
+          <Link href='/dashboard'>
             <Button mt={4}>View Dashboard</Button>
           </Link>
         </>

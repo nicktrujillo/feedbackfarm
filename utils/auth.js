@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import cookie from "js-cookie";
+
 import { createUser } from "./db";
 import firebase from "./firebase";
 
@@ -20,16 +22,22 @@ function useProvideAuth() {
   const handleUser = (rawUser) => {
     if (rawUser) {
       const user = formatUser(rawUser);
+      const { token, ...userWithoutToken } = user;
 
-      console.log(rawUser);
-
-      createUser(user.uid, user);
+      createUser(user.uid, userWithoutToken);
       setLoading(false);
       setUser(user);
+
+      cookie.set("feedback-farm-auth", true, {
+        expires: 1,
+      });
+
       return user;
     } else {
       setLoading(false);
       setUser(false);
+      cookie.remove("feedback-farm-auth");
+
       return false;
     }
   };
@@ -67,6 +75,7 @@ const formatUser = (user) => {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
+    token: user.ya,
     provider: user.providerData[0].providerId,
     photoUrl: user.photoURL,
   };

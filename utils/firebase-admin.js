@@ -10,4 +10,8 @@ if (!admin.apps.length) {
     databaseURL: "feedback-farm.firebaseapp.com",
   });
 }
-export default admin.firestore();
+
+const auth = admin.auth();
+const db = admin.firestore();
+
+export { auth, db };

@@ -47,7 +47,7 @@ const DashboardLayout = ({ children }) => {
         </Flex>
         <Flex alignItems='center' mb={14}>
           <LinkIcon mr={2} boxSize={6} />
-          <Link>Sites</Link>
+          <Link href='/dashboard'>Sites</Link>
         </Flex>
         <Flex alignItems='center' mb={14}>
           <ChatIcon mr={2} boxSize={6} />
@@ -55,7 +55,11 @@ const DashboardLayout = ({ children }) => {
         </Flex>
         <Flex alignItems='center' justifyContent='flex-start'>
           <Avatar mr={2} boxSize={6} src={auth.user?.photoUrl} />
-          {auth.user && <Link onClick={(e) => auth.signout()}>Sign Out</Link>}
+          {auth.user && (
+            <Link href='/' onClick={(e) => auth.signout()}>
+              Sign Out
+            </Link>
+          )}
         </Flex>
       </Stack>
       <Flex p={0} justifyContent='flex-start' alignItems='stretch'>

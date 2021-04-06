@@ -1,3 +1,4 @@
+import { db } from "@/utils/firebase-admin";
 import { getAllFeedback } from "@/utils/db-admin";
 
 export default async function handler(req, res) {
