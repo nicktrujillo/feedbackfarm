@@ -35,12 +35,13 @@ const AddNewSiteModal = () => {
       name,
       url,
     };
-    createSite(newSite);
+
+    const { id } = createSite(newSite);
     mutate(
       ["/api/sites", auth.user.token],
-      async (data) => {
-        return { sites: [...data.sites, newSite] };
-      },
+      async (data) => ({
+        sites: [...data.sites, { id, ...newSite }],
+      }),
       false
     );
     toast({

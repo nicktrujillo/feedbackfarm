@@ -1,5 +1,6 @@
 import { auth } from "@/utils/firebase-admin";
 import { getUserSites } from "@/utils/db-admin";
+import { logger, formatObjectKeys } from "@/utils/logger";
 
 export default async function handler(req, res) {
   try {
@@ -8,6 +9,20 @@ export default async function handler(req, res) {
 
     res.status(200).json({ sites });
   } catch (error) {
+    logger.error(
+      {
+        request: {
+          headers: formatObjectKeys(req.headers),
+          url: req.url,
+          method: req.method,
+        },
+        response: {
+          statusCode: res.statusCode,
+        },
+      },
+      error.message
+    );
+
     res.status(500).json({ error });
   }
 }

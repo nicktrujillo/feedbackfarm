@@ -74,11 +74,9 @@ const DashboardLayout = ({ children }) => {
         <Flex alignItems='center' cursor='pointer'>
           <Avatar mr={2} boxSize={6} src={auth.user?.photoUrl} />
           {auth.user && (
-            <NextLink href='/'>
-              <Heading size='sm' onClick={(e) => auth.signout()}>
-                Sign Out
-              </Heading>
-            </NextLink>
+            <Heading size='sm' onClick={(e) => auth.signout()}>
+              Sign Out
+            </Heading>
           )}
         </Flex>
       </Stack>

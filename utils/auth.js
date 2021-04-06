@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import Router from "next/router";
 import cookie from "js-cookie";
 
 import { createUser } from "./db";
@@ -32,17 +33,20 @@ function useProvideAuth() {
         expires: 1,
       });
 
+      setLoading(false);
       return user;
     } else {
-      setLoading(false);
+      Router.push("/");
       setUser(false);
       cookie.remove("feedback-farm-auth");
 
+      setLoading(false);
       return false;
     }
   };
 
   const signinWithGitHub = () => {
+    Router.push("/sites");
     setLoading(true);
     return firebase
       .auth()
@@ -51,6 +55,7 @@ function useProvideAuth() {
   };
 
   const signinWithGoogle = () => {
+    Router.push("/sites");
     setLoading(true);
     return firebase
       .auth()
